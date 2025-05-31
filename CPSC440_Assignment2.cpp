@@ -3,11 +3,12 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include "GraphicsLogic.h"
 #include <stdio.h>
 
 int main() {
-	int width = 640;
-	int height = 480;
+	int width = 960;
+	int height = 720;
 	bool exit = false;
 
 	ALLEGRO_DISPLAY *display = NULL;
@@ -17,7 +18,7 @@ int main() {
 		return(-1);
 	}
 
-	display = al_create_display(width, height + 40);
+	display = al_create_display(width, height);
 
 	if (!display) {
 		return(-1);
@@ -28,7 +29,7 @@ int main() {
 	al_init_font_addon();
 	al_init_ttf_addon();
 
-	ALLEGRO_FONT *font = al_load_font("PressStart2P.ttf", 16, 0);
+	ALLEGRO_FONT *font = al_load_font("PressStart2P.ttf", 12, 0);
 	if (font == NULL) {
 		printf("Font is NULL\n");
 		return(-1);
@@ -38,6 +39,8 @@ int main() {
 	al_register_event_source(eventQueue, al_get_display_event_source(display));
 	al_register_event_source(eventQueue, al_get_mouse_event_source());
 
+	graphicsLogic graphics_logic = graphicsLogic::graphicsLogic();
+
 	while (!exit) {
 		ALLEGRO_EVENT event;
 		al_wait_for_event(eventQueue, &event);
@@ -45,6 +48,10 @@ int main() {
 		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 			exit = true;
 		}
+
+		graphics_logic.drawGrid(width, height);
+		graphics_logic.drawStatus(font, 0, width, height);
+		al_flip_display();
 
 	}
 

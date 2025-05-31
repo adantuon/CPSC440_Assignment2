@@ -8,10 +8,10 @@
 class graphicsLogic {
 public:
 	graphicsLogic();
-	void mouseInput();
+	void mouseInput(int x, int y);
 	void drawShape(int x, int y);
-	void drawGrid();
-	void drawStatus();
+	void drawGrid(int width, int height);
+	void drawStatus(ALLEGRO_FONT *font, int matchedPairs, int width, int height);
 private:
 	
 };
