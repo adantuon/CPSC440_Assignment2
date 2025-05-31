@@ -1,0 +1,11 @@
+// Aiden D'Antuono
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
+#include <string>
+
+typedef struct {
+	std::string name;
+	ALLEGRO_BITMAP *sprite;
+} shapeT;

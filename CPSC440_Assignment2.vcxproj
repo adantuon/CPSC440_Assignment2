@@ -133,6 +133,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameLogic.h" />
+    <ClInclude Include="GraphicsLogic.h" />
+    <ClInclude Include="Shape.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="packages\AllegroDeps.1.15.0\build\native\AllegroDeps.targets" Condition="Exists('packages\AllegroDeps.1.15.0\build\native\AllegroDeps.targets')" />
