@@ -4,6 +4,7 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include "GraphicsLogic.h"
+#include "GameLogic.h"
 #include <stdio.h>
 
 int main() {
@@ -40,8 +41,9 @@ int main() {
 	al_register_event_source(eventQueue, al_get_mouse_event_source());
 
 	graphicsLogic graphics_logic = graphicsLogic::graphicsLogic();
+	gameLogic game_logic = gameLogic::gameLogic();
 
-
+	al_set_target_bitmap(al_get_backbuffer(display));
 	graphics_logic.drawGrid(width, height);
 	graphics_logic.drawStatus(font, 0, width, height);
 	al_flip_display();

@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CPSC440_Assignment2.cpp" />
+    <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="GraphicsLogic.cpp" />
   </ItemGroup>
   <ItemGroup>
