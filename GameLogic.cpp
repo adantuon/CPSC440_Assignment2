@@ -35,7 +35,10 @@ int gameLogic::getSecondSelected() {
 }
 
 bool gameLogic::alreadyMatched(int index) {
-	if (matchedArray[index] == 1) {
+	if (index > 23) {
+		return true;
+	}
+	else if (matchedArray[index] == 1) {
 		return true;
 	}
 	else {
@@ -52,10 +55,6 @@ shapeT gameLogic::getShape(int index) {
 	}
 	numSelected++;
 	return shapeArray[index];
-}
-
-void gameLogic::setShape(int x, int y, shapeT shape) {
-
 }
 
 bool gameLogic::compareShapes() {
@@ -126,10 +125,8 @@ void gameLogic::createShapes() {
 	gameShapes[9] = { createCircle(yellow) };
 	gameShapes[10] = { createCircle(magenta) };
 	gameShapes[11] = { createCircle(cyan) };
-
 }
 
-//SHOULD PROBABLY PUT THESE IN THE CLASS
 ALLEGRO_BITMAP* gameLogic::createSquare(ALLEGRO_COLOR color) {
 	ALLEGRO_BITMAP *bitmap = al_create_bitmap(128, 128);
 	

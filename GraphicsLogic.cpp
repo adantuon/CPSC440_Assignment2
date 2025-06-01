@@ -19,11 +19,6 @@ void graphicsLogic::mouseInput(int x, int y) {
 	}
 	shapeT shape = game.getShape(index);
 	drawShape(shape, gridx, gridy);
-	/*
-	Interpret coords into position in the array
-	pass the position to getShape from GameLogic
-	pass shape from getShape to drawShape
-	*/
 }
 
 void graphicsLogic::drawShape(shapeT shape, int x, int y) {

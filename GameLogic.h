@@ -12,7 +12,6 @@ class gameLogic {
 	public:
 		gameLogic();
 		shapeT getShape(int index);
-		void setShape(int x, int y, shapeT shape);
 		bool compareShapes();
 		void resetGame();
 		void createShapes();
