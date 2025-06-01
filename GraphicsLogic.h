@@ -14,8 +14,9 @@ public:
 	void mouseInput(int x, int y);
 	void drawShape(shapeT shape, int x, int y);
 	void drawGrid();
-	void drawStatus(ALLEGRO_FONT *font, int matchedPairs);
+	void drawStatus(ALLEGRO_FONT *font);
 	void clearGridSquare(int x, int y);
+	void handleMatching();
 private:
 	int height;
 	int width;

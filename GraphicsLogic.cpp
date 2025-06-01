@@ -14,6 +14,9 @@ void graphicsLogic::mouseInput(int x, int y) {
 	int gridy = y / (height / 5);
 	int index = gridx + (5 * gridy);
 
+	if (game.alreadyMatched(index)) {
+		return;
+	}
 	shapeT shape = game.getShape(index);
 	drawShape(shape, gridx, gridy);
 	/*
@@ -44,13 +47,31 @@ void graphicsLogic::drawGrid() {
 
 }
 
-void graphicsLogic::drawStatus(ALLEGRO_FONT *font,int matchedPairs) {
+void graphicsLogic::drawStatus(ALLEGRO_FONT *font) {
 	clearGridSquare(4, 4);
-	al_draw_textf(font, al_map_rgb(255, 255, 255), (width / 5) * 4 + 10, (height / 5) * 4 + 20, ALLEGRO_ALIGN_LEFT, "Matched: %i", matchedPairs);
-	al_draw_textf(font, al_map_rgb(255, 255, 255), (width / 5) * 4 + 10, (height / 5) * 4 + 50, ALLEGRO_ALIGN_LEFT, "Remaining: %i", 12 - matchedPairs);
+	al_draw_textf(font, al_map_rgb(255, 255, 255), (width / 5) * 4 + 10, (height / 5) * 4 + 20, ALLEGRO_ALIGN_LEFT, "Matched: %i", game.getMatchedPairs());
+	al_draw_textf(font, al_map_rgb(255, 255, 255), (width / 5) * 4 + 10, (height / 5) * 4 + 50, ALLEGRO_ALIGN_LEFT, "Remaining: %i", 12 - game.getMatchedPairs());
 
 }
 
 void graphicsLogic::clearGridSquare(int x, int y) {
 	al_draw_filled_rectangle((width / 5) * x + 5, (height / 5) * y + 5, (width / 5) * (x + 1) - 5, (height / 5) * (y + 1) - 5, al_map_rgb(0, 0, 0));
+}
+
+void graphicsLogic::handleMatching() {
+	if (game.getNumSelected() != 2) {
+		return;
+	}
+	else {
+		int firstSelected = game.getFirstSelected();
+		int secondSelected = game.getSecondSelected();
+		bool match = game.compareShapes();
+		if (!match) {
+			//wait 5 seconds
+			clearGridSquare(firstSelected % 5, firstSelected / 5);
+			clearGridSquare(secondSelected % 5, secondSelected / 5);
+		}
+		
+		
+	}
 }

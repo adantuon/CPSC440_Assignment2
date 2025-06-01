@@ -14,8 +14,43 @@ gameLogic::gameLogic() {
 	resetGame();
 }
 
+int gameLogic::getMatchedPairs() {
+	return matchedPairs;
+}
+
+int gameLogic::getNumSelected() {
+	return numSelected;
+}
+
+//Returns firstSelected;
+int gameLogic::getFirstSelected() {
+	int returnInt = firstSelected;
+	return returnInt;
+}
+
+//Returns secondSelected and sets it to -1 for graphics to clear cards
+int gameLogic::getSecondSelected() {
+	int returnInt = secondSelected;
+	return returnInt;
+}
+
+bool gameLogic::alreadyMatched(int index) {
+	if (matchedArray[index] == 1) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 shapeT gameLogic::getShape(int index) {
-	selectedArray[index] = 1;
+	if (firstSelected == -1) {
+		firstSelected = index;
+	}
+	else {
+		secondSelected = index;
+	}
+	numSelected++;
 	return shapeArray[index];
 }
 
@@ -23,30 +58,51 @@ void gameLogic::setShape(int x, int y, shapeT shape) {
 
 }
 
-bool gameLogic::compareShapes(shapeT firstShape, shapeT secondShape) {
-	if (&firstShape == &secondShape) {
-		return(true);
+bool gameLogic::compareShapes() {
+	shapeT firstShape = gameShapes[firstSelected];
+	shapeT secondShape = gameShapes[secondSelected];
+
+	
+
+	if (firstShape.sprite == secondShape.sprite) {
+		matchedPairs++;
+		matchedArray[firstSelected] = 1;
+		matchedArray[secondSelected] = 1;
+
+		numSelected = 0;
+		firstSelected = -1;
+		secondSelected = -1;
+		return true;
 	}
 	else {
-		return(false);
+		numSelected = 0;
+		firstSelected = -1;
+		secondSelected = -1;
+		return false;
 	}
 }
+
 void gameLogic::resetGame() {
 	matchedPairs = 0;
+	numSelected = 0;
+	firstSelected = -1;
+	secondSelected = -1;
 
-	//Will need to clear the board
+	//Will need to clear the board AND clear matchedArray
 
 	int randIndex;
 	shapeT tmpShapeT;
 	srand(time(NULL));
 
 	//shuffle the board
+	/*
 	for (int i = 23; i >= 1; i--) {
 		randIndex = rand() % (i + 1);
 		tmpShapeT = shapeArray[i];
 		shapeArray[i] = shapeArray[randIndex];
 		shapeArray[randIndex] = tmpShapeT;
 	}
+	*/
 }
 
 void gameLogic::createShapes() {

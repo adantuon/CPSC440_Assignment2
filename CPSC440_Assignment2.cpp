@@ -47,7 +47,7 @@ int main() {
 
 	al_set_target_bitmap(al_get_backbuffer(display));
 	graphics.drawGrid();
-	graphics.drawStatus(font, 0);
+	graphics.drawStatus(font);
 	al_flip_display();
 
 	while (!exit) {
@@ -63,7 +63,8 @@ int main() {
 			graphics.mouseInput(x, y);
 		}
 
-		graphics.drawStatus(font, 1);
+		graphics.drawStatus(font);
+		graphics.handleMatching();
 		al_flip_display();
 
 	}
