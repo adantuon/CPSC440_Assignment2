@@ -9,9 +9,10 @@ class graphicsLogic {
 public:
 	graphicsLogic();
 	void mouseInput(int x, int y);
-	void drawShape(int x, int y);
+	void drawShape(shapeT shape, int x, int y);
 	void drawGrid(int width, int height);
 	void drawStatus(ALLEGRO_FONT *font, int matchedPairs, int width, int height);
+	void clearGridSquare(int x, int y, int width, int height);
 private:
 	
 };

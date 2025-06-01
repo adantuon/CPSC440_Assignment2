@@ -41,6 +41,11 @@ int main() {
 
 	graphicsLogic graphics_logic = graphicsLogic::graphicsLogic();
 
+
+	graphics_logic.drawGrid(width, height);
+	graphics_logic.drawStatus(font, 0, width, height);
+	al_flip_display();
+
 	while (!exit) {
 		ALLEGRO_EVENT event;
 		al_wait_for_event(eventQueue, &event);
@@ -49,8 +54,7 @@ int main() {
 			exit = true;
 		}
 
-		graphics_logic.drawGrid(width, height);
-		graphics_logic.drawStatus(font, 0, width, height);
+		graphics_logic.drawStatus(font, 1, width, height);
 		al_flip_display();
 
 	}
