@@ -23,8 +23,8 @@ void graphicsLogic::mouseInput(int x, int y) {
 
 void graphicsLogic::drawShape(shapeT shape, int x, int y) {
 
-	x = (width / 5) * x;
-	y = (height / 5) * y;
+	x = (width / 5) * x + ((width / 5) - 128) / 2;
+	y = ((height / 5) * y) + ((height / 5) - 128) / 2;
 
 	al_draw_bitmap(shape.sprite, x, y, 0);
 }
