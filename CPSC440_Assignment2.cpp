@@ -12,9 +12,9 @@ int main() {
 	int height = 720;
 	bool exit = false;
 
+	//Set up Allegro
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_EVENT_QUEUE *eventQueue = NULL;
-	ALLEGRO_TIMER *timer = NULL;
 
 	if (!al_init()) {
 		return(-1);
@@ -40,7 +40,6 @@ int main() {
 	eventQueue = al_create_event_queue();
 	al_register_event_source(eventQueue, al_get_display_event_source(display));
 	al_register_event_source(eventQueue, al_get_mouse_event_source());
-	timer = al_create_timer(1.0);
 
 	gameLogic game = gameLogic::gameLogic();
 	graphicsLogic graphics = graphicsLogic::graphicsLogic(width, height, game, font);
@@ -56,6 +55,7 @@ int main() {
 		ALLEGRO_EVENT event;
 		al_wait_for_event(eventQueue, &event);
 
+		//Get and handle user input
 		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 			exit = true;
 		}
@@ -65,6 +65,7 @@ int main() {
 			graphics.mouseInput(x, y);
 		}
 
+		//Update screen and check for matches
 		graphics.drawStatus();
 		graphics.handleMatching();
 		al_flip_display();
