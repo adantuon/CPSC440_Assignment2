@@ -2,11 +2,11 @@
 
 #include "GraphicsLogic.h"
 
-graphicsLogic::graphicsLogic(int inWidth, int inHeight, gameLogic inGame) {
+graphicsLogic::graphicsLogic(int inWidth, int inHeight, gameLogic inGame, ALLEGRO_FONT *inFont) {
 	width = inWidth;
 	height = inHeight;
 	game = inGame;
-
+	font = inFont;
 }
 
 void graphicsLogic::mouseInput(int x, int y) {
@@ -42,11 +42,11 @@ void graphicsLogic::drawGrid() {
 
 }
 
-void graphicsLogic::drawStatus(ALLEGRO_FONT *font) {
+void graphicsLogic::drawStatus() {
 	clearGridSquare(4, 4);
 	al_draw_textf(font, al_map_rgb(255, 255, 255), (width / 5) * 4 + 10, (height / 5) * 4 + 20, ALLEGRO_ALIGN_LEFT, "Matched: %i", game.getMatchedPairs());
 	al_draw_textf(font, al_map_rgb(255, 255, 255), (width / 5) * 4 + 10, (height / 5) * 4 + 50, ALLEGRO_ALIGN_LEFT, "Remaining: %i", 12 - game.getMatchedPairs());
-
+	al_flip_display();
 }
 
 void graphicsLogic::clearGridSquare(int x, int y) {
@@ -61,12 +61,33 @@ void graphicsLogic::handleMatching() {
 		int firstSelected = game.getFirstSelected();
 		int secondSelected = game.getSecondSelected();
 		bool match = game.compareShapes();
+		time_t startTime, currentTime;
+
 		if (!match) {
 			//wait 5 seconds
+			startTime = time(NULL);
+			currentTime = time(NULL);
+
+			while (currentTime - startTime < 2) {
+				currentTime = time(NULL);
+			}
 			clearGridSquare(firstSelected % 5, firstSelected / 5);
 			clearGridSquare(secondSelected % 5, secondSelected / 5);
 		}
-		
-		
+		else {
+			//If the player has won the game
+			if (game.getMatchedPairs() == 12) {
+				drawStatus();
+				startTime = time(NULL);
+				currentTime = time(NULL);
+
+				while (currentTime - startTime < 5) {
+					currentTime = time(NULL);
+				}
+				al_clear_to_color(al_map_rgb(0, 0, 0));
+				drawGrid();
+				game.resetGame();
+			}
+		}
 	}
 }

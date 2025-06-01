@@ -14,6 +14,7 @@ int main() {
 
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_EVENT_QUEUE *eventQueue = NULL;
+	ALLEGRO_TIMER *timer = NULL;
 
 	if (!al_init()) {
 		return(-1);
@@ -39,15 +40,16 @@ int main() {
 	eventQueue = al_create_event_queue();
 	al_register_event_source(eventQueue, al_get_display_event_source(display));
 	al_register_event_source(eventQueue, al_get_mouse_event_source());
+	timer = al_create_timer(1.0);
 
 	gameLogic game = gameLogic::gameLogic();
-	graphicsLogic graphics = graphicsLogic::graphicsLogic(width, height, game);
+	graphicsLogic graphics = graphicsLogic::graphicsLogic(width, height, game, font);
 	int x;
 	int y;
 
 	al_set_target_bitmap(al_get_backbuffer(display));
 	graphics.drawGrid();
-	graphics.drawStatus(font);
+	graphics.drawStatus();
 	al_flip_display();
 
 	while (!exit) {
@@ -63,7 +65,7 @@ int main() {
 			graphics.mouseInput(x, y);
 		}
 
-		graphics.drawStatus(font);
+		graphics.drawStatus();
 		graphics.handleMatching();
 		al_flip_display();
 

@@ -58,10 +58,8 @@ shapeT gameLogic::getShape(int index) {
 }
 
 bool gameLogic::compareShapes() {
-	shapeT firstShape = gameShapes[firstSelected];
-	shapeT secondShape = gameShapes[secondSelected];
-
-	
+	shapeT firstShape = shapeArray[firstSelected];
+	shapeT secondShape = shapeArray[secondSelected];
 
 	if (firstShape.sprite == secondShape.sprite) {
 		matchedPairs++;
@@ -88,20 +86,21 @@ void gameLogic::resetGame() {
 	secondSelected = -1;
 
 	//Will need to clear the board AND clear matchedArray
+	for (int i = 0; i < 24; i++) {
+		matchedArray[i] = 0;
+	}
 
 	int randIndex;
 	shapeT tmpShapeT;
 	srand(time(NULL));
 
 	//shuffle the board
-	/*
 	for (int i = 23; i >= 1; i--) {
 		randIndex = rand() % (i + 1);
 		tmpShapeT = shapeArray[i];
 		shapeArray[i] = shapeArray[randIndex];
 		shapeArray[randIndex] = tmpShapeT;
 	}
-	*/
 }
 
 void gameLogic::createShapes() {
