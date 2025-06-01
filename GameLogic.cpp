@@ -4,19 +4,25 @@
 
 gameLogic::gameLogic() {
 	createShapes();
+
+	//Put tiles in game
+	for (int i = 0; i < 12; i++) {
+		shapeArray[i] = gameShapes[i];
+		shapeArray[i + 12] = gameShapes[i];
+	}
+
 	resetGame();
 }
 
-shapeT gameLogic::getShape(int x, int y) {
-	shapeT deleteLater;
-
-	return deleteLater;
-
+shapeT gameLogic::getShape(int index) {
+	selectedArray[index] = 1;
+	return shapeArray[index];
 }
 
 void gameLogic::setShape(int x, int y, shapeT shape) {
 
 }
+
 bool gameLogic::compareShapes(shapeT firstShape, shapeT secondShape) {
 	if (&firstShape == &secondShape) {
 		return(true);
@@ -26,7 +32,21 @@ bool gameLogic::compareShapes(shapeT firstShape, shapeT secondShape) {
 	}
 }
 void gameLogic::resetGame() {
+	matchedPairs = 0;
 
+	//Will need to clear the board
+
+	int randIndex;
+	shapeT tmpShapeT;
+	srand(time(NULL));
+
+	//shuffle the board
+	for (int i = 23; i >= 1; i--) {
+		randIndex = rand() % (i + 1);
+		tmpShapeT = shapeArray[i];
+		shapeArray[i] = shapeArray[randIndex];
+		shapeArray[randIndex] = tmpShapeT;
+	}
 }
 
 void gameLogic::createShapes() {
@@ -38,18 +58,18 @@ void gameLogic::createShapes() {
 	ALLEGRO_COLOR magenta = al_map_rgb(255, 0, 255);
 	ALLEGRO_COLOR cyan = al_map_rgb(0, 255, 255);
 
-	gameShapes[0] = { "Red Square", createSquare(red) };
-	gameShapes[1] = { "Green Square", createSquare(green) };
-	gameShapes[2] = { "Blue Square", createSquare(blue) };
-	gameShapes[3] = { "Yellow Square", createSquare(yellow) };
-	gameShapes[4] = { "Magenta Square", createSquare(magenta) };
-	gameShapes[5] = { "Cyan Square", createSquare(cyan) };
-	gameShapes[6] = { "Red Circle", createCircle(red) };
-	gameShapes[7] = { "Green Circle", createCircle(green) };
-	gameShapes[8] = { "Blue Circle", createCircle(blue) };
-	gameShapes[9] = { "Yellow Circle", createCircle(yellow) };
-	gameShapes[10] = { "Magenta Circle", createCircle(magenta) };
-	gameShapes[11] = { "Cyan Circle", createCircle(cyan) };
+	gameShapes[0] = { createSquare(red) };
+	gameShapes[1] = { createSquare(green) };
+	gameShapes[2] = { createSquare(blue) };
+	gameShapes[3] = { createSquare(yellow) };
+	gameShapes[4] = { createSquare(magenta) };
+	gameShapes[5] = { createSquare(cyan) };
+	gameShapes[6] = { createCircle(red) };
+	gameShapes[7] = { createCircle(green) };
+	gameShapes[8] = { createCircle(blue) };
+	gameShapes[9] = { createCircle(yellow) };
+	gameShapes[10] = { createCircle(magenta) };
+	gameShapes[11] = { createCircle(cyan) };
 
 }
 

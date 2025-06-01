@@ -7,6 +7,5 @@
 #include <string>
 
 typedef struct {
-	std::string name;
 	ALLEGRO_BITMAP *sprite;
 } shapeT;

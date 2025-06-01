@@ -40,12 +40,14 @@ int main() {
 	al_register_event_source(eventQueue, al_get_display_event_source(display));
 	al_register_event_source(eventQueue, al_get_mouse_event_source());
 
-	graphicsLogic graphics_logic = graphicsLogic::graphicsLogic();
-	gameLogic game_logic = gameLogic::gameLogic();
+	gameLogic game = gameLogic::gameLogic();
+	graphicsLogic graphics = graphicsLogic::graphicsLogic(width, height, game);
+	int x;
+	int y;
 
 	al_set_target_bitmap(al_get_backbuffer(display));
-	graphics_logic.drawGrid(width, height);
-	graphics_logic.drawStatus(font, 0, width, height);
+	graphics.drawGrid();
+	graphics.drawStatus(font, 0);
 	al_flip_display();
 
 	while (!exit) {
@@ -55,8 +57,13 @@ int main() {
 		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 			exit = true;
 		}
+		else if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
+			x = event.mouse.x;
+			y = event.mouse.y;
+			graphics.mouseInput(x, y);
+		}
 
-		graphics_logic.drawStatus(font, 1, width, height);
+		graphics.drawStatus(font, 1);
 		al_flip_display();
 
 	}
